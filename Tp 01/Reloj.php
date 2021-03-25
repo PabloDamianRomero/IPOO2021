@@ -74,8 +74,6 @@ class Reloj
     public function comprobarLimite()
     {
         $hs = $this->getHora();
-        $min = $this->getMinuto();
-        $seg = $this->getSegundo();
         $bandera = false;
         if (($hs > 23)) {
             $bandera = true;
