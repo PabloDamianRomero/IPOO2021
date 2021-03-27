@@ -31,10 +31,14 @@ $puntos["Pto4"] = [
 $c = new Cuadrado($puntos);
 $esCuadrado = $c->comprobarFigura();
 if ($esCuadrado) {
+    echo "\nCUADRADO ORIGINAL: \n";
     echo $c->__toString();
+
     $area = $c->area();
     echo "\nÁrea del cuadrado: " . $area . "\n";
     //$c->puntoInferiorIzq();
+
+    echo "\n----DESPLAZAR-----\n";
     echo "\nIngrese punto (valor de x): ";
     $x = trim(fgets(STDIN));
     echo "\nIngrese punto (valor de y): ";
@@ -42,6 +46,10 @@ if ($esCuadrado) {
     $puntoDesplazo = array();
     $puntoDesplazo[0] = array("valorX" => $x, "valorY" => $y);
     $c->desplazar($puntoDesplazo);
+    echo $c->__toString();
+
+    $c->aumentarTamanio(1);
+    echo "\nAUMENTANDO TAMAÑO...\n";
     echo $c->__toString();
 } else {
     echo "\nNo es un cuadrado";
