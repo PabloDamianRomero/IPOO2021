@@ -18,6 +18,15 @@ class Cuadrado
         $this->puntos = $p;
     }
 
+    public function __toString(){
+        $cadena = "\n";
+        $cadena = $cadena . "Punto1 = (".$this->getPuntos()["Pto1"][0]["valor1"].",".$this->getPuntos()["Pto1"][0]["valor2"].")\n";
+        $cadena = $cadena . "Punto2 = (".$this->getPuntos()["Pto2"][0]["valor1"].",".$this->getPuntos()["Pto2"][0]["valor2"].")\n";
+        $cadena = $cadena . "Punto3 = (".$this->getPuntos()["Pto3"][0]["valor1"].",".$this->getPuntos()["Pto3"][0]["valor2"].")\n";
+        $cadena = $cadena . "Punto4 = (".$this->getPuntos()["Pto4"][0]["valor1"].",".$this->getPuntos()["Pto4"][0]["valor2"].")\n";
+        return $cadena;
+    }
+
     public function comprobarFigura()
     {
         $respuesta = false;
@@ -50,27 +59,29 @@ class Cuadrado
         return $areaCuadrado;
     }
 
-    public function desplazar($d){
+    public function desplazar($d)
+    {
         $x = $d[0]["valorX"];
         $y = $d[0]["valorY"];
+        $aux = $this->getPuntos();
+
         foreach ($this->puntos as $key => $coordenadas) {
-            foreach ($coordenadas as $key => $valor) {
-                //echo "\n".$valor["valor1"]+1;
-
-                /**COMPLETAR (CAMBIAR VALORES INTERNOS DEL ARREGLO) */
-
-            }
+            $aux[$key][0]["valor1"] = $aux[$key][0]["valor1"] + $x;
+            $aux[$key][0]["valor2"] = $aux[$key][0]["valor2"] + $y;
+            $this->setPuntos($aux);
         }
-        print_r($this->puntos);
     }
 
+    /**
+     * Método que detecta cuál es el punto inferior izquierdo
+     * del cuadrado
+     */
     public function puntoInferiorIzq()
     {
         $menorX = 999999;
         $menorY = 999999;
         foreach ($this->puntos as $key => $coordenadas) {
             foreach ($coordenadas as $key => $valor) {
-                //echo "\n"."(".$valor["valor1"].",".$valor["valor2"].")";
                 if ($valor["valor1"] < $menorX) {
                     $menorX = $valor["valor1"];
                 }
@@ -79,8 +90,7 @@ class Cuadrado
                 }
             }
         }
-        echo "\n MenorX: " . $menorX;
-        echo "\n MenorY: " . $menorY;
+        return "\nMenorX: " . $menorX . "\tMenorY: " . $menorY . "\n";
     }
 
 }
