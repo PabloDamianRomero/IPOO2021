@@ -1,5 +1,5 @@
 <?php
-include 'Libro.php';
+include '..\Libro.php';
 
 $libro1 = new Libro(9789876097260, "La Condena del Restaurador", 2018, "Del Nuevo Extremo", "Cezilla", "Lontrato");
 $libro2 = new Libro(9788493996307, "Hagakure", 2012, "Claridad", "Yamamoto", "Tsunetomo");
@@ -20,22 +20,32 @@ echo $libro3->__toString();
 echo $libro4->__toString();
 
 $resp = $libro1->perteneceEditorial("Del Nuevo Extremo");
-if($resp){
+if ($resp) {
     echo "\nLibro 1, pertenece a editorial. ";
-}else{
+} else {
     echo "\nLibro 1, NO pertenece a editorial. ";
 }
 
 echo "\n-----------------------------------------\n";
 
-$existe = $libro1 -> iguales($libro1,$colLibros);
-if($existe){
+$existe = $libro1->iguales($libro1, $colLibros);
+if ($existe) {
     echo "\nEl libro existe en la colección. ";
-}else{
+} else {
     echo "\nEl libro no existe en la colección. ";
 }
 
 echo "\n-----------------------------------------\n";
 
-$tiempoTranscurrido = $libro3 -> aniosDesdeEdicion();
-echo "\nAños desde edición hasta hoy: ".$tiempoTranscurrido;
+$tiempoTranscurrido = $libro3->aniosDesdeEdicion();
+echo "\nAños desde edición hasta hoy: " . $tiempoTranscurrido . "\n";
+
+echo "\n-----------------------------------------\n";
+
+$filtro = $libro1->libroDeEditoriales($colLibros, "Losada");
+
+$largoFiltro = count($filtro);
+echo "\n Libros que pertenecen a cierta editorial: ";
+for ($i = 0; $i < $largoFiltro; $i++) {
+    echo "\n".$filtro[$i]["Datos"];
+}

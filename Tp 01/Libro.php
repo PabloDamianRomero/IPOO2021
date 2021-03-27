@@ -119,9 +119,19 @@ class Libro
         return $diferencia;
     }
 
-    public function libroDeEditoriales($arregloAutor, $pEditorial)
+    public function libroDeEditoriales($arreglo, $pEditorial)
     {
-        // completar
+        $colFiltro = array();
+        $longitud = count($arreglo);
+        $posicion = 0;
+        for ($i = 0; $i < $longitud; $i++) {
+            $ed = $arreglo[$i]->getEditorial();
+            if ($ed == $pEditorial) {
+                $colFiltro[$posicion] = array("Datos" => $arreglo[$i]);
+                $posicion++;
+            }
+        }
+        return $colFiltro;
     }
 
 }
