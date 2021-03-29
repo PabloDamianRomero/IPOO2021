@@ -1,4 +1,5 @@
 <?php
+
 class Persona
 {
     private $nombre;
@@ -56,9 +57,9 @@ class Persona
 
     public function __toString()
     {
-        return "\nNombre: " . $this->getNombre() .
-        "\nApellido: " . $this->getApellido() .
-        "\nTipo de documento: " . $this->getTipoDoc() .
-        "\nNúmero de documento: " . $this->getNroDoc() . "\n";
+        return "\n Nombre: " . $this->getNombre() .
+        "\n Apellido: " . $this->getApellido() .
+        "\n Tipo de documento: " . $this->getTipoDoc() .
+        "\n Número de documento: " . $this->getNroDoc() . "\n";
     }
 }
