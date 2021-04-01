@@ -45,16 +45,22 @@ class Teatro
     public function __toString()
     {
         $cadena = "";
-        $cadena = $cadena . "\nTeatro: " . $this->getNombreTeatro();
-        $cadena = $cadena . "\nDirección: " . $this->getDireccionTeatro();
-        $cadena = $cadena . "\n";
-        $longitud = count($this->getFunciones());
-        $aux = $this->getFunciones();
-        for ($i = 0; $i < $longitud; $i++) {
-            $cadena = $cadena . "\nFunción n° " . $i . ":\n";
-            $cadena = $cadena . "\tNombre de función: " . $aux[$i]["nombreF"] . "\n";
-            $cadena = $cadena . "\tPrecio de función: " . $aux[$i]["precioF"];
-            $cadena = $cadena . "\n";
+        $cadena .= "\nTeatro: " . $this->getNombreTeatro();
+        $cadena .= "\nDirección: " . $this->getDireccionTeatro();
+        $cadena .= "\n";
+        if ($this->getFunciones() != null) {
+            $longitud = count($this->getFunciones());
+            $aux = $this->getFunciones();
+            $cont = 0;
+            for ($i = 0; $i < $longitud; $i++) {
+                $cont++;
+                $cadena .= "\nFunción n° " . $cont . ":\n";
+                $cadena .= "\tNombre de función: " . $aux[$i]["nombreF"] . "\n";
+                $cadena .= "\tPrecio de función: " . $aux[$i]["precioF"];
+                $cadena .= "\n";
+            }
+        } else {
+            $cadena .= "\nNo existen funciones actualmente\n";
         }
         return $cadena;
     }
@@ -71,15 +77,19 @@ class Teatro
 
     public function cambiarNombreFuncion($nroFuncion, $nuevoNombre)
     {
-        $aux = $this->getFunciones();
-        $aux[$nroFuncion]["nombreF"] = $nuevoNombre;
-        $this->setFunciones($aux);
+        if ($this->getFunciones() != null) {
+            $aux = $this->getFunciones();
+            $aux[$nroFuncion]["nombreF"] = $nuevoNombre;
+            $this->setFunciones($aux);
+        }
     }
 
     public function cambiarPrecioFuncion($nroFuncion, $nuevoPrecio)
     {
-        $aux = $this->getFunciones();
-        $aux[$nroFuncion]["precioF"] = $nuevoPrecio;
-        $this->setFunciones($aux);
+        if ($this->getFunciones() != null) {
+            $aux = $this->getFunciones();
+            $aux[$nroFuncion]["precioF"] = $nuevoPrecio;
+            $this->setFunciones($aux);
+        }
     }
 }
