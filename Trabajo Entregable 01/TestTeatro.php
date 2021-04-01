@@ -2,7 +2,9 @@
 /**
  * PABLO DAMIAN ROMERO - FAI 1652
  *
- * Enlace gitHub:
+ * Enlace gitHub: https://github.com/PabloDamianRomero/IPOO2021.git
+ * 
+ * Nombre de la carpeta en el repositorio: Trabajo Entregable 01
  *
  * Un teatro se caracteriza por su nombre y su dirección y en él se realizan 4 funciones al día.
  * Cada función tiene un nombre y un precio. Realice el diseño de la clase Teatro e indique qué métodos
