@@ -9,7 +9,7 @@ class Lectura
     {
         $this->objLibro = $pObjLibro;
         $this->numeroPag = $pNumeroPag;
-        $this->librosLeidos = array();
+        //$this->librosLeidos = null;
     }
 
     public function getLibro()
@@ -63,7 +63,7 @@ class Lectura
     public function siguientePagina()
     {
         $cant = $this->getLibro()->getCantPaginas();
-        if (($this->getNumeroPag() > 0) && ($this->getNumeroPag() <= $cant)) {
+        if (($this->getNumeroPag() > 0) && ($this->getNumeroPag() < $cant)) {
             $this->setNumeroPag($this->getNumeroPag() + 1);
         }
         return $this->getNumeroPag();
@@ -72,7 +72,7 @@ class Lectura
     public function retrocederPagina()
     {
         $cant = $this->getLibro()->getCantPaginas();
-        if (($this->getNumeroPag() > 0) && ($this->getNumeroPag() <= $cant)) {
+        if (($this->getNumeroPag() > 1) && ($this->getNumeroPag() < $cant)) {
             $this->setNumeroPag($this->getNumeroPag() - 1);
         }
         return $this->getNumeroPag();
@@ -85,6 +85,54 @@ class Lectura
             $this->setNumeroPag($proxima);
         }
         return $this->getNumeroPag();
+    }
+
+    public function darSinopsis($titulo)
+    {
+        $cadena = "\nNo hay sinopsis disponibles";
+        if ($this->getLibrosLeidos() != null) {
+            $aux = $this->getLibrosLeidos();
+            $longitud = count($aux);
+            //print_r($aux);
+            for ($i = 0; $i < $longitud; $i++) {
+                if ($aux[$i]->getTitulo() == $titulo) {
+                    $cadena = "\nSinopsis de " . $titulo . ": " . $aux[$i]->getSinopsis();
+                }
+            }
+        }
+        return $cadena;
+    }
+
+    public function leidosAnioEdicion($x)
+    {
+        $col = null;
+        if ($this->getLibrosLeidos() != null) {
+            $aux = $this->getLibrosLeidos();
+            $longitud = count($aux);
+            $col = array();
+            for ($i = 0; $i < $longitud; $i++) {
+                if($aux[$i]->getAnioEdicion() == $x){
+                    $col[$i] = $aux[$i]->getTitulo() . "- (".$x.")";
+                }
+            }
+        }
+        return $col;
+    }
+
+    public function darLibrosPorAutor($nombreAutor){
+        $col = null;
+        if ($this->getLibrosLeidos() != null) {
+            $aux = $this->getLibrosLeidos();
+            $longitud = count($aux);
+            $col = array();
+            for ($i = 0; $i < $longitud; $i++) {
+                echo "\nNNNNN: ".$aux[$i]->getAutor()->getNombre();
+                if($aux[$i]->getAutor()->getNombre() == $nombreAutor){
+                    $col[$i] = $aux[$i]->getTitulo() . "- (".$nombreAutor.")";
+                }
+            }
+        }
+        return $col;
     }
 
 }
