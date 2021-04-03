@@ -3,7 +3,7 @@
  * PABLO DAMIAN ROMERO - FAI 1652
  *
  * Enlace gitHub: https://github.com/PabloDamianRomero/IPOO2021.git
- * 
+ *
  * Nombre de la carpeta en el repositorio: Trabajo Entregable 01
  *
  * Un teatro se caracteriza por su nombre y su dirección y en él se realizan 4 funciones al día.
@@ -72,75 +72,79 @@ function comprobarIndice($n)
     return $respuesta;
 }
 
-do {
-    menu();
-    $op = trim(fgets(STDIN));
-    switch ($op) {
-        case 1:
-            $teatro1 = funcionesPredeterminadas();
-            echo "\nTeatro y funciones cargadas.";
-            break;
-        case 2:
-            $teatro1 = cargaManual();
-            echo "\nTeatro y funciones cargadas.";
-            break;
-        case 3:
-            if ($teatro1 != null) {
-                echo "\nIngrese nuevo nombre: ";
-                $nombreNuevo = trim(fgets(STDIN));
-                $teatro1->cambiarNombreTeatro($nombreNuevo);
-            } else {
-                echo "\nNo existe el teatro.";
-            }
-            break;
-        case 4:
-            if ($teatro1 != null) {
-                echo "\nIngrese nueva dirección: ";
-                $nuevaDir = trim(fgets(STDIN));
-                $teatro1->cambiarDireccionTeatro($nuevaDir);
-            } else {
-                echo "\nNo existe el teatro.";
-            }
-            break;
-        case 5:
-            if ($teatro1 != null) {
-                echo "\nIngrese número de función válida: ";
-                $numFuncion = trim(fgets(STDIN));
-                if (comprobarIndice($numFuncion)) {
-                    echo "\nIngrese el nuevo nombre de la función n° " . $numFuncion . " ";
-                    $nombreFuncion = trim(fgets(STDIN));
-                    $numFuncion = $numFuncion - 1;
-                    $teatro1->cambiarNombreFuncion($numFuncion, $nombreFuncion);
+function main($teatro1, $colFunciones)
+{
+    do {
+        menu();
+        $op = trim(fgets(STDIN));
+        switch ($op) {
+            case 1:
+                $teatro1 = funcionesPredeterminadas();
+                echo "\nTeatro y funciones cargadas.";
+                break;
+            case 2:
+                $teatro1 = cargaManual();
+                echo "\nTeatro y funciones cargadas.";
+                break;
+            case 3:
+                if ($teatro1 != null) {
+                    echo "\nIngrese nuevo nombre: ";
+                    $nombreNuevo = trim(fgets(STDIN));
+                    $teatro1->cambiarNombreTeatro($nombreNuevo);
                 } else {
-                    echo "\nNúmero de función incorrecto. ";
+                    echo "\nNo existe el teatro.";
                 }
-            } else {
-                echo "\nNo existe el teatro.";
-            }
-            break;
-        case 6:
-            if ($teatro1 != null) {
-                echo "\nIngrese número de función válida: ";
-                $numFuncion = trim(fgets(STDIN));
-                if (comprobarIndice($numFuncion)) {
-                    echo "\nIngrese el nuevo precio de la función n° " . $numFuncion . " ";
-                    $precio = trim(fgets(STDIN));
-                    $numFuncion = $numFuncion - 1;
-                    $teatro1->cambiarPrecioFuncion($numFuncion, $precio);
+                break;
+            case 4:
+                if ($teatro1 != null) {
+                    echo "\nIngrese nueva dirección: ";
+                    $nuevaDir = trim(fgets(STDIN));
+                    $teatro1->cambiarDireccionTeatro($nuevaDir);
                 } else {
-                    echo "\nNúmero de función incorrecto. ";
+                    echo "\nNo existe el teatro.";
                 }
-            } else {
-                echo "\nNo existe el teatro.";
-            }
-            break;
-        case 7:
-            if ($teatro1 != null) {
-                echo $teatro1->__toString();
-            } else {
-                echo "\nNo existe un teatro para mostrar sus datos.";
-            }
-            break;
-    }
+                break;
+            case 5:
+                if ($teatro1 != null) {
+                    echo "\nIngrese número de función válida: ";
+                    $numFuncion = trim(fgets(STDIN));
+                    if (comprobarIndice($numFuncion)) {
+                        echo "\nIngrese el nuevo nombre de la función n° " . $numFuncion . " ";
+                        $nombreFuncion = trim(fgets(STDIN));
+                        $numFuncion = $numFuncion - 1;
+                        $teatro1->cambiarNombreFuncion($numFuncion, $nombreFuncion);
+                    } else {
+                        echo "\nNúmero de función incorrecto. ";
+                    }
+                } else {
+                    echo "\nNo existe el teatro.";
+                }
+                break;
+            case 6:
+                if ($teatro1 != null) {
+                    echo "\nIngrese número de función válida: ";
+                    $numFuncion = trim(fgets(STDIN));
+                    if (comprobarIndice($numFuncion)) {
+                        echo "\nIngrese el nuevo precio de la función n° " . $numFuncion . " ";
+                        $precio = trim(fgets(STDIN));
+                        $numFuncion = $numFuncion - 1;
+                        $teatro1->cambiarPrecioFuncion($numFuncion, $precio);
+                    } else {
+                        echo "\nNúmero de función incorrecto. ";
+                    }
+                } else {
+                    echo "\nNo existe el teatro.";
+                }
+                break;
+            case 7:
+                if ($teatro1 != null) {
+                    echo $teatro1->__toString();
+                } else {
+                    echo "\nNo existe un teatro para mostrar sus datos.";
+                }
+                break;
+        }
+    } while ($op > 0 && $op < 8);
+}
 
-} while ($op > 0 && $op < 8);
+main($teatro1, $colFunciones);
