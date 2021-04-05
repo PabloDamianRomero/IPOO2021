@@ -47,7 +47,7 @@ function cargarTeatro($colTeatros, $colFunciones, $objTeatro)
             $duracionFuncion = trim(fgets(STDIN));
             $resp = verificarHorarios($anterior, $horaInicio, $duracionFuncion); // verifica si la hora ingresada es valida (0 a 23hs)
             if (!$resp) {
-                echo "\n\n Deberá ingresar nuevamente los horarios. (El horario se vió pisado con el anterior)\n";
+                echo "\n\n Deberá ingresar nuevamente los horarios. (El horario se vió pisado con el anterior o es incorrecto)\n";
             } else {
                 $anterior = $horaInicio + $duracionFuncion;
                 $seguir = verificarUltimaHora($anterior); // si quedan funciones por ingresar pero ya se completó el horario, se utiliza este atributo como condicion de corte
@@ -92,7 +92,7 @@ function cargarFunciones($colTeatros, $cant, $nroTeatro)
                 $duracionFuncion = trim(fgets(STDIN));
                 $resp = verificarHorarios($anterior, $horaInicio, $duracionFuncion); // verifica si la hora ingresada es valida (0 a 23hs)
                 if (!$resp) {
-                    echo "\n\n Deberá ingresar nuevamente los horarios. (El horario se vió pisado con el anterior)\n";
+                    echo "\n\n Deberá ingresar nuevamente los horarios. (El horario se vió pisado con el anterior o es incorrecto)\n";
                 } else {
                     $anterior = $horaInicio + $duracionFuncion;
                     $seguir = verificarUltimaHora($anterior); // si quedan funciones por ingresar pero ya se completó el horario, se utiliza este atributo como condicion de corte
