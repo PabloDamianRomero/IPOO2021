@@ -2,6 +2,10 @@
 
 include 'Teatro.php';
 include 'Funcion.php';
+include 'Cine.php';
+include 'Musical.php';
+include 'ObraTeatral.php';
+
 
 $colFunciones = array();
 $objTeatro = null;
@@ -16,9 +20,9 @@ function menu()
     echo "\n 2       - Agregar funciones al teatro. ";
     echo "\n 3       - Cambiarle el nombre al teatro. ";
     echo "\n 4       - Cambiarle la dirección al teatro. ";
-    echo "\n 5       - Cambiar nombre de una función. ";
-    echo "\n 6       - Cambiar precio de una función. ";
-    echo "\n 7       - Mostrar datos. ";
+    echo "\n 5       - Cambiar nombre y precio de una función. ";
+    echo "\n 6       - Mostrar datos. ";
+    echo "\n 7       - Dar costos. ";
     echo "\n Otro n° - Salir. ";
     echo "\n-------------------------------------------";
 }
@@ -49,9 +53,36 @@ function cargarFuncion($objTeatro, $colFunciones)
             $nombreFuncion = trim(fgets(STDIN));
             echo "\n Ingrese el precio de la función: ";
             $precioFuncion = trim(fgets(STDIN));
-            $objFuncion = new Funcion($nombreFuncion, $hsInicio, $duracion, $precioFuncion);
-            $colFunciones[count($colFunciones)] = $objFuncion;
-            $objTeatro->setColObjFunciones($colFunciones);
+            echo "\n Ingrese el número según el tipo de función (1 = CINE ; 2 = MUSICAL ; 3 = OBRA TEATRAL)";
+            $tipo = trim(fgets(STDIN));
+            switch ($tipo) {
+                case 1:
+                    echo "\nIngrese el género de la película: ";
+                    $genero = trim(fgets(STDIN));
+                    echo "\nIngrese país de origen: ";
+                    $origen = trim(fgets(STDIN));
+                    $objFuncion = new Cine($nombreFuncion, $hsInicio, $duracion, $precioFuncion, $genero, $origen);
+                    $colFunciones[count($colFunciones)] = $objFuncion;
+                    $objTeatro->setColObjFunciones($colFunciones);
+                    break;
+                case 2:
+                    echo "\nIngrese el director de musical: ";
+                    $director = trim(fgets(STDIN));
+                    echo "\nIngrese la cantidad de personas en escena: ";
+                    $cantPersonas = trim(fgets(STDIN));
+                    $objFuncion = new Musical($nombreFuncion, $hsInicio, $duracion, $precioFuncion, $director, $cantPersonas);
+                    $colFunciones[count($colFunciones)] = $objFuncion;
+                    $objTeatro->setColObjFunciones($colFunciones);
+                    break;
+                case 3:
+                    echo "\nIngrese el nombre del autor: ";
+                    $autor = trim(fgets(STDIN));
+                    $objFuncion = new ObraTeatral($nombreFuncion, $hsInicio, $duracion, $precioFuncion, $autor);
+                    $colFunciones[count($colFunciones)] = $objFuncion;
+                    $objTeatro->setColObjFunciones($colFunciones);
+                    break;
+            }
+
         } else {
             echo "\n No se puede agregar esta función, los horarios se solapan.";
         }
@@ -122,45 +153,36 @@ function main($objTeatro, $colFunciones)
                     echo "\nNo existe nigún teatro.";
                 }
                 break;
-            case 5:
+            case 5: // Cambiar nombre y precio de una función
                 echo "\nIngrese nombre de la función que desea cambiar: ";
                 $nombreBusca = trim(fgets(STDIN));
                 $posicionFuncion = $objTeatro->buscarFuncion($nombreBusca);
-                if($posicionFuncion != -1){
+                if ($posicionFuncion != -1) {
                     echo "\nFunción encontrada. Ingrese nuevo nombre: ";
                     $nuevoNombre = trim(fgets(STDIN));
-                    $exito = $objTeatro->cambiarNombreFuncion($posicionFuncion,$nuevoNombre);
-                    if($exito){
-                        echo "\nNombre cambiado con exito";
-                    }else{
-                        echo "\nError. No se pudo cambiar el nombre de la función";
-                    }
-                }else{
-                    echo "\nLa función ingresada no existe en el teatro.";
-                }
-                break;
-            case 6:
-                echo "\nIngrese nombre de la función que desea cambiar: ";
-                $nombreBusca = trim(fgets(STDIN));
-                $posicionFuncion = $objTeatro->buscarFuncion($nombreBusca);
-                if($posicionFuncion != -1){
-                    echo "\nFunción encontrada. Ingrese nuevo precio: ";
+                    echo "\nIngrese nuevo precio: ";
                     $nuevoPrecio = trim(fgets(STDIN));
-                    $exito = $objTeatro->cambiarPrecioFuncion($posicionFuncion,$nuevoPrecio);
-                    if($exito){
-                        echo "\nPrecio cambiado con exito";
-                    }else{
-                        echo "\nError. No se pudo cambiar el precio de la función";
+                    $exito = $objTeatro->modificarFuncion($posicionFuncion, $nuevoNombre, $nuevoPrecio);
+                    if ($exito) {
+                        echo "\nFunción modificada con exito";
+                    } else {
+                        echo "\nError. No se pudo modificar la función";
                     }
-                }else{
+                } else {
                     echo "\nLa función ingresada no existe en el teatro.";
                 }
                 break;
-            case 7:
+            case 6: // Mostrar Datos
                 if ($objTeatro != null) {
                     echo $objTeatro;
                 } else {
                     echo "\nNo existe nigún teatro.";
+                }
+                break;
+            case 7:
+                if($objTeatro != null){
+                    $costos = $objTeatro->darCostos();
+                    echo "\nCOSTOS: ".$costos;
                 }
                 break;
         }

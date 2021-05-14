@@ -128,29 +128,19 @@ class Teatro
         return $posicion;
     }
 
-    public function cambiarNombreFuncion($nroFuncion, $nuevoNombre)
-    {
+    public function modificarFuncion($nroFuncion, $nuevoNombre, $nuevoPrecio){
         $exito = false;
         if (!$this->funcionesEsVacia()) {
             $aux = $this->getColObjFunciones();
             $aux[$nroFuncion]->setNombreFuncion($nuevoNombre);
-            $this->setColObjFunciones($aux);
-            $exito = true;
-        }
-        return $exito;
-    }
-
-    public function cambiarPrecioFuncion($nroFuncion, $nuevoPrecio)
-    {
-        $exito = false;
-        if (!$this->funcionesEsVacia()) {
-            $aux = $this->getColObjFunciones();
             $aux[$nroFuncion]->setPrecioFuncion($nuevoPrecio);
             $this->setColObjFunciones($aux);
             $exito = true;
         }
         return $exito;
     }
+
+   
 
     /**
      * Método que verifica el horario de una nueva función a ingresar
@@ -185,5 +175,21 @@ class Teatro
             $respuesta = true;
         }
         return $respuesta;
+    }
+
+
+    /**
+     * Determina seg�n las actividades del teatro cu�l deber�a ser el cobro obtenido.
+     *
+     */
+    function darCostos()
+    {
+        $costos = 0;
+        $colActividades = $this->getColObjFunciones();
+        $longitud = count($colActividades);
+        for ($i = 0; $i < $longitud; $i ++) {
+            $costos = $costos + $colActividades[$i]->recibirCosto();
+        }
+        return $costos;
     }
 }

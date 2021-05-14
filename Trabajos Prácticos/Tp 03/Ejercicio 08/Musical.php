@@ -1,5 +1,5 @@
 <?php
-include 'Funcion.php';
+
 class Musical extends Funcion{
     private $director;
     private $cantPersonasEscena;
@@ -53,7 +53,7 @@ class Musical extends Funcion{
     }
 
     public function recibirCosto(){
-        $costo = parent::recibirCosto() * 1.20;
+        $costo = parent::recibirCosto() * 0.12;
         return $costo;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include 'Funcion.php';
+
 class ObraTeatral extends Funcion{
     private $autor;
 
@@ -23,5 +23,17 @@ class ObraTeatral extends Funcion{
     public function setAutor($pAutor)
     {
         $this->autor = $pAutor;
+    }
+
+    public function __toString(){
+        $cadena = "";
+        $cadena .= parent::__toString();
+        $cadena .= "\nAutor: ".$this->getAutor();
+        return $cadena;
+    }
+
+    public function recibirCosto(){
+        $costo = parent::recibirCosto() * 0.45;
+        return $costo;
     }
 }

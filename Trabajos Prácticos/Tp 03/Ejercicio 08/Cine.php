@@ -1,5 +1,5 @@
 <?php
-include 'Funcion.php';
+
 class Cine extends Funcion{
     private $genero;
     private $paisOrigen;
@@ -7,7 +7,7 @@ class Cine extends Funcion{
     public function __construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pGenero, $pOrigen){
         parent::__construct($pNombre, $pInicio, $pDuracion, $pPrecio);
         $this->genero = $pGenero;
-        $this->paisGenero = $pOrigen;
+        $this->paisOrigen = $pOrigen;
     }
 
     
@@ -53,7 +53,7 @@ class Cine extends Funcion{
     }
 
     public function recibirCosto(){
-        $costo = parent::recibirCosto() * 1.65;
+        $costo = parent::recibirCosto() * 0.65;
         return $costo;
     }
 }
