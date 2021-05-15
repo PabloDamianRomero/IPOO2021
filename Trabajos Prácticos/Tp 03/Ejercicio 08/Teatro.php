@@ -1,20 +1,16 @@
 <?php
-/**
- * Coreccion tpo 2
- *
- * DESAPROBADO
- * No Define un método especial para modificar los datos de 1 función
-
- * El método encargado de cargar las funciones, tiene que verificar el horario antes de cargar la misma. Recordar que el Test no debe implementar funcionalidad solicitada para los objetos.
- * El método que modifica la información de una función, no permite modificar el horario de la función que se desea modificar.
- * OJO, al modificar una función, se debe modificar el array de funciones del teatro usando el SET correspondiente.
- */
 class Teatro
 {
+    /**
+     * Declaración de variables
+     */
     private $nombreTeatro;
     private $direccionTeatro;
     private $colObjFunciones;
 
+    /**
+     * Método constructor
+     */
     public function __construct($nombre, $dir, $pFunciones)
     {
         $this->nombreTeatro = $nombre;
@@ -22,36 +18,57 @@ class Teatro
         $this->colObjFunciones = $pFunciones;
     }
 
+    /**
+     * Obtiene el valor de nombreTeatro
+     */
     public function getNombreTeatro()
     {
         return $this->nombreTeatro;
     }
 
+    /**
+     * Obtiene el valor de direccionTeatro
+     */
     public function getDireccionTeatro()
     {
         return $this->direccionTeatro;
     }
 
+    /**
+     * Obtiene el valor de colObjFunciones
+     */
     public function getColObjFunciones()
     {
         return $this->colObjFunciones;
     }
 
+    /**
+     * Modifica el valor de nombreTeatro
+     */
     public function setNombreTeatro($pNombre)
     {
         $this->nombreTeatro = $pNombre;
     }
 
+    /**
+     * Modifica el valor de direccionTeatro
+     */
     public function setDireccionTeatro($pDir)
     {
         $this->direccionTeatro = $pDir;
     }
 
+    /**
+     * Modifica el valor de colObjFunciones
+     */
     public function setColObjFunciones($pFunciones)
     {
         $this->colObjFunciones = $pFunciones;
     }
 
+    /**
+     * Devuelve los datos de la clase
+     */
     public function __toString()
     {
         $cadena = "\n===========================================";
@@ -61,6 +78,9 @@ class Teatro
         return $cadena;
     }
 
+    /**
+     * Devuelve los datos de una colección
+     */
     public function mostrarColeccion($unaCol)
     {
         $cadena = "";
@@ -72,6 +92,9 @@ class Teatro
         return $cadena;
     }
 
+    /**
+     * Verifica si la colección de objetos funciones no tiene elementos
+     */
     public function funcionesEsVacia()
     {
         $esVacia = false;
@@ -83,6 +106,9 @@ class Teatro
         return $esVacia;
     }
 
+    /**
+     * Modifica el valor de nombreTeatro por uno ingresado por parámetro
+     */
     public function cambiarNombreTeatro($nuevoNombre)
     {
         $exito = false;
@@ -94,6 +120,9 @@ class Teatro
         return $exito;
     }
 
+    /**
+     * Modifica el valor de direccionTeatro por uno ingresado por parámetro
+     */
     public function cambiarDireccionTeatro($nuevaDir)
     {
         $exito = false;
@@ -128,36 +157,42 @@ class Teatro
         return $posicion;
     }
 
-    public function modificarFuncion($nroFuncion, $nuevoNombre, $nuevoPrecio){
+    /**
+     * Modifica los valores de un objeto de la clase Funcion
+     */
+    public function modificarFuncion($nroFuncion, $nuevoNombre, $nuevoPrecio, $nuevaHrInicio, $nuevaDuración)
+    {
         $exito = false;
         if (!$this->funcionesEsVacia()) {
-            $aux = $this->getColObjFunciones();
-            $aux[$nroFuncion]->setNombreFuncion($nuevoNombre);
-            $aux[$nroFuncion]->setPrecioFuncion($nuevoPrecio);
-            $this->setColObjFunciones($aux);
+            $colActividades = $this->getColObjFunciones();
+            $colActividades[$nroFuncion]->setNombreFuncion($nuevoNombre);
+            $colActividades[$nroFuncion]->setPrecioFuncion($nuevoPrecio);
+            $colActividades[$nroFuncion]->setHoraInicio($nuevaHrInicio);
+            $colActividades[$nroFuncion]->setDuracion($nuevaDuración);
+            $this->setColObjFunciones($colActividades);
             $exito = true;
         }
         return $exito;
     }
 
-   
-
     /**
-     * Método que verifica el horario de una nueva función a ingresar
-     * con la última función ingresada
+     * Método que verifica el horario de una nueva función a ingresar con la última función ingresada.
      * (Esto se ejecuta antes de crear la nueva funcion)
      */
     public function horarioSePisa($nuevaDuración)
     {
         $estado = false;
         $ultimaHora = $this->ultimaHora();
-        //echo "\nULT HS: " . $ultimaHora;
         if (($ultimaHora >= $nuevaDuración)) {
             $estado = true;
         }
         return $estado;
     }
 
+    /**
+     * Método que retorna el tiempo total de la última función agregada.
+     * Esto es, horaInicio + duración de la misma. (Implementado en clase Función)
+     */
     public function ultimaHora()
     {
         $ultHora = -1;
@@ -168,6 +203,9 @@ class Teatro
         return $ultHora;
     }
 
+    /**
+     * Verifica si un horario está dentro del rango de un día
+     */
     public function correspondeAUnDia($tiempo)
     {
         $respuesta = false;
@@ -177,18 +215,18 @@ class Teatro
         return $respuesta;
     }
 
-
     /**
-     * Determina seg�n las actividades del teatro cu�l deber�a ser el cobro obtenido.
-     *
+     * Determina según las actividades del teatro cuál debería ser el cobro obtenido.
      */
-    function darCostos()
+    public function darCostos($mesFiltro)
     {
         $costos = 0;
         $colActividades = $this->getColObjFunciones();
         $longitud = count($colActividades);
-        for ($i = 0; $i < $longitud; $i ++) {
-            $costos = $costos + $colActividades[$i]->recibirCosto();
+        for ($i = 0; $i < $longitud; $i++) {
+            if ($colActividades[$i]->getMes() == $mesFiltro) {
+                $costos = $costos + $colActividades[$i]->recibirCosto();
+            }
         }
         return $costos;
     }

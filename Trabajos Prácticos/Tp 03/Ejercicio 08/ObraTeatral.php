@@ -1,38 +1,53 @@
 <?php
 
-class ObraTeatral extends Funcion{
+class ObraTeatral extends Funcion
+{
+    /**
+     * Declaración de variables
+     */
     private $autor;
 
-    public function __construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pAutor){
-        parent::__construct($pNombre, $pInicio, $pDuracion, $pPrecio);
+    /**
+     * Método constructor
+     */
+    public function __construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pMes, $pAutor)
+    {
+        parent::__construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pMes);
         $this->autor = $pAutor;
     }
 
     /**
-     * Get the value of autor
-     */ 
+     * Obtiene el valor de autor
+     */
     public function getAutor()
     {
         return $this->autor;
     }
 
     /**
-     * Set the value of autor
-     *
-     */ 
+     * Modifica el valor de autor
+     */
     public function setAutor($pAutor)
     {
         $this->autor = $pAutor;
     }
 
-    public function __toString(){
+    /**
+     * Devuelve los datos de la clase
+     */
+    public function __toString()
+    {
         $cadena = "";
         $cadena .= parent::__toString();
-        $cadena .= "\nAutor: ".$this->getAutor();
+        $cadena .= "\n\t * Autor: " . $this->getAutor();
         return $cadena;
     }
 
-    public function recibirCosto(){
+    /**
+     * Devuelve el precio de la función con calculo de incremento
+     */
+    public function recibirCosto()
+    {
         $costo = parent::recibirCosto() * 0.45;
         return $costo;
     }

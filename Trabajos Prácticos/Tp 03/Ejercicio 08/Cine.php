@@ -1,58 +1,71 @@
 <?php
-
-class Cine extends Funcion{
+class Cine extends Funcion
+{
+    /**
+     * Declaración de variables
+     */
     private $genero;
     private $paisOrigen;
 
-    public function __construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pGenero, $pOrigen){
-        parent::__construct($pNombre, $pInicio, $pDuracion, $pPrecio);
+    /**
+     * Método constructor
+     */
+    public function __construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pMes, $pGenero, $pOrigen)
+    {
+        parent::__construct($pNombre, $pInicio, $pDuracion, $pPrecio, $pMes);
         $this->genero = $pGenero;
         $this->paisOrigen = $pOrigen;
     }
 
-    
     /**
-     * Get the value of genero
-     */ 
+     * Obtiene el valor de genero
+     */
     public function getGenero()
     {
         return $this->genero;
     }
 
     /**
-     * Set the value of genero
-     *
-     */ 
-    public function setGenero($pGenero)
-    {
-        $this->genero = $pGenero;
-    }
-
-    /**
-     * Get the value of paisOrigen
-     */ 
+     * Obtiene el valor de paisOrigen
+     */
     public function getPaisOrigen()
     {
         return $this->paisOrigen;
     }
 
     /**
-     * Set the value of paisOrigen
-     */ 
+     * Modifica el valor de genero
+     */
+    public function setGenero($pGenero)
+    {
+        $this->genero = $pGenero;
+    }
+
+    /**
+     * Modifica el valor de paisOrigen
+     */
     public function setPaisOrigen($pOrigen)
     {
         $this->paisOrigen = $pOrigen;
     }
 
-    public function __toString(){
+    /**
+     * Devuelve los datos de la clase
+     */
+    public function __toString()
+    {
         $cadena = "";
         $cadena .= parent::__toString();
-        $cadena .= "\nGénero: ".$this->getGenero();
-        $cadena .= "\nPaís de origen: ".$this->getPaisOrigen();
+        $cadena .= "\n\t * Género: " . $this->getGenero();
+        $cadena .= "\n\t * País de origen: " . $this->getPaisOrigen();
         return $cadena;
     }
 
-    public function recibirCosto(){
+    /**
+     * Devuelve el precio de la función con calculo de incremento
+     */
+    public function recibirCosto()
+    {
         $costo = parent::recibirCosto() * 0.65;
         return $costo;
     }
