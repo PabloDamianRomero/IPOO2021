@@ -1,7 +1,7 @@
 <?php
 /**
  * PABLO DAMIAN ROMERO - FAI 1652
- * Enlace gitHub:
+ * Enlace gitHub: https://github.com/PabloDamianRomero/IPOO2021/tree/main/Trabajos%20Entregables%20Obligatorios/Trabajo%20Entregable%2003
  */
 class Funcion
 {

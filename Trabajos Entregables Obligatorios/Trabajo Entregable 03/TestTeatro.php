@@ -1,14 +1,14 @@
 <?php
 /**
  * PABLO DAMIAN ROMERO - FAI 1652
- * Enlace gitHub:
+ * Enlace gitHub: https://github.com/PabloDamianRomero/IPOO2021/tree/main/Trabajos%20Entregables%20Obligatorios/Trabajo%20Entregable%2003
  */
 
-include 'Teatro.php';
-include 'Funcion.php';
-include 'Cine.php';
-include 'Musical.php';
-include 'ObraTeatral.php';
+include_once 'Teatro.php';
+include_once 'Funcion.php';
+include_once 'Cine.php';
+include_once 'Musical.php';
+include_once 'ObraTeatral.php';
 
 $objTeatro = null;
 
@@ -53,7 +53,8 @@ function cargarFuncion($objTeatro)
         echo "\n Ingrese la duración(hs) la función: ";
         $duracion = trim(fgets(STDIN));
         $funcionEsValida = $objTeatro->horarioSePisa($hsInicio);
-        if ($funcionEsValida == false) { // Si no se pisa
+        $perteneceUnDia = $objTeatro->correspondeAUnDia($hsInicio);
+        if (($funcionEsValida == false) && ($perteneceUnDia)) { // Si no se pisa y está dentro del rango horario (0-23)
             echo "\n Ingrese el nombre de la función: ";
             $nombreFuncion = trim(fgets(STDIN));
             echo "\n Ingrese el precio de la función: ";
@@ -96,7 +97,7 @@ function cargarFuncion($objTeatro)
                     break;
             }
         } else {
-            echo "\n No se puede agregar esta función, los horarios se solapan.";
+            echo "\n No se puede agregar esta función, los horarios se solapan o son incorrectos.";
         }
         echo "\nIngresar otra función (s/n)";
         $seguir = strtolower(trim(fgets(STDIN)));
@@ -205,7 +206,7 @@ function main($objTeatro)
                     $mesFiltro = trim(fgets(STDIN));
                     if ($mesFiltro > 0 && $mesFiltro < 13) {
                         $costos = $objTeatro->darCostos($mesFiltro);
-                        echo "\nCOSTOS (Mes " . $mesFiltro . "): " . $costos;
+                        echo "\nCOSTOS (Mes " . $mesFiltro . "): $" . $costos;
                     } else {
                         echo "\nValor incorrecto. Intente nuevamente";
                     }
