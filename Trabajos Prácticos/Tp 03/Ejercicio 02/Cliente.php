@@ -7,18 +7,11 @@ class Cliente extends Persona{
         $this->numCliente = $numC;
     }
 
-    /**
-     * Get the value of numCliente
-     */ 
     public function getNumCliente()
     {
         return $this->numCliente;
     }
 
-    /**
-     * Set the value of numCliente
-     *
-     */ 
     public function setNumCliente($numCliente)
     {
         $this->numCliente = $numCliente;

@@ -12,53 +12,32 @@ class Persona
         $this->apellido = $ape;
     }
 
-    /**
-     * Get the value of numDoc
-     */
     public function getNumDoc()
     {
         return $this->numDoc;
     }
 
-    /**
-     * Set the value of numDoc
-     *
-     */
     public function setNumDoc($numDoc)
     {
         $this->numDoc = $numDoc;
     }
 
-    /**
-     * Get the value of nombre
-     */
     public function getNombre()
     {
         return $this->nombre;
     }
 
-    /**
-     * Set the value of nombre
-     *
-     */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
 
     }
 
-    /**
-     * Get the value of apellido
-     */
     public function getApellido()
     {
         return $this->apellido;
     }
 
-    /**
-     * Set the value of apellido
-     *
-     */
     public function setApellido($apellido)
     {
         $this->apellido = $apellido;

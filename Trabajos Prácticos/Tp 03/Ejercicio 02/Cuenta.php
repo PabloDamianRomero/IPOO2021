@@ -10,56 +10,34 @@ class Cuenta{
         $this->objCliente = $pCliente;
     }
 
-    /**
-     * Get the value of numCuenta
-     */ 
     public function getNumCuenta()
     {
         return $this->numCuenta;
     }
 
-    /**
-     * Set the value of numCuenta
-     *
-     */ 
-    public function setNumCuenta($numCuenta)
-    {
-        $this->numCuenta = $numCuenta;
-    }
-
-    /**
-     * Get the value of saldo
-     */ 
     public function getSaldo()
     {
         return $this->saldo;
     }
 
-    /**
-     * Set the value of saldo
-     *
-     */ 
-    public function setSaldo($saldo)
-    {
-        $this->saldo = $saldo;
-    }
-
-    /**
-     * Get the value of objCliente
-     */ 
     public function getObjCliente()
     {
         return $this->objCliente;
     }
 
-    /**
-     * Set the value of objCliente
-     *
-     */ 
-    public function setObjCliente($objCliente)
+    public function setNumCuenta($numCuenta)
     {
-        $this->objCliente = $objCliente;
+        $this->numCuenta = $numCuenta;
+    }
 
+    public function setSaldo($saldo)
+    {
+        $this->saldo = $saldo;
+    }
+
+    public function setObjCliente($pObjCliente)
+    {
+        $this->objCliente = $pObjCliente;
     }
 
     public function __toString(){
@@ -76,12 +54,23 @@ class Cuenta{
     }
 
     public function realizarDeposito($monto){
+        $exito = false;
         $deposito = $this->getSaldo() + $monto;
+        if($deposito > $this->getSaldo()){
+            $exito = true;
+        }
         $this->setSaldo($deposito);
+        return $exito;
     }
 
     public function realizarRetiro($monto){
-        $retiro = $this->getSaldo() - $monto;
-        $this->setSaldo($retiro);
+        $exito = false;
+        $saldo = $this->getSaldo();
+        if($saldo > $monto){
+            $retiro = $saldo - $monto;
+            $this->setSaldo($retiro);
+            $exito = true;
+        }
+        return $exito;
     }
 }
